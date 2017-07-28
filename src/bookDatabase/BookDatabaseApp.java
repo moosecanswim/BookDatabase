@@ -26,7 +26,8 @@ public class BookDatabaseApp {
 		bookDB.add(new Book("Orcl1003","OCP: Oracle Certified Professional Java SE","Jeanne Boyarsky","Everything you need to know in one place",45.00));
 		bookDB.add(new Book("Python1004","Automate the Boring Stuff with Python","Al Sweigart","Fun with Python",10.50));
 		bookDB.add(new Book("Zombie1005","The Maker's Guide to the Zombie Apocalypse","Simon Monk","Defend Your Base with Simple Circuits, Arduino, and Raspberry Pi",16.50));
-		bookDB.add(new Book("Rasp1006","Raspberry Pi Projects for the Evil Genius","Donald Norris","A dozen fiendishly fun projects for the Raspberry Pi!",14.75));
+		bookDB.add(new Book("Rasp1006","Raspberry Pi Projects for the Evil Genius","Kyle","A dozen fiendishly fun projects for the Raspberry Pi!",14.75));
+		bookDB.add(new Book("Rasp1007","Rasb 2","Kyle","A dozen fiendishly fun projects for the Raspberry Pi!",15.75));
 
 		Scanner scan = new Scanner(System.in);
 		boolean run = true;
@@ -40,7 +41,8 @@ public class BookDatabaseApp {
 				break;
 			case "2" :
 				//case two- search database
-				searchSku(bookDB);
+				//searchSku(bookDB);
+				searchAuthor(bookDB);
 				break;
 			case "3" :
 				//case three- add entry 
@@ -56,21 +58,46 @@ public class BookDatabaseApp {
 
 		}while(run);
 
-
-
-
-
-
 		System.out.println("Exiting Program");
+	}
+	public static void searchAuthor(ArrayList<Book> inArray){
+		Scanner scanAuthor = new Scanner(System.in);
+		String authorToSearch=null;
+		System.out.println("Please enter an author to search (not case sensitive)");
+		if(scanAuthor.hasNext()){
+			authorToSearch = scanAuthor.nextLine();
+		}else{
+			System.out.println("There is an issue entering your author.");
+		}
+		//System.out.println("we are searching for "+authorToSearch);
+
+		Boolean foundIt = false;
+		int authorCount = 0;
+		for(Book i : inArray){
+			if(authorToSearch.equalsIgnoreCase(i.getBookAuthor())){
+				if(authorCount == 0){
+					System.out.println("Found some! Displaying the information below: ");
+					//authorCount++;
+				}
+				i.printBook();
+				authorCount++;
+				foundIt = true;
+			}else{
+				//add capability to create a new entry from here
+			}
+		}if(foundIt == false){
+			System.out.println("Sorry but i dont have it but if you would like to add it you can do so from the main menu");  
+
+		}
 	}
 	public static void searchSku(ArrayList<Book> inArray){
 		Scanner scanSku = new Scanner(System.in);
 		String skuToSearch=null;
-		System.out.println("Please enter a sku to search");
+		System.out.println("Please enter a sku to search (case sensitive)");
 		if(scanSku.hasNext()){
 			skuToSearch = scanSku.nextLine();
 		}else{
-			System.out.println("there is an issue entering your sku");
+			System.out.println("There is an issue entering your sku.");
 		}
 		//System.out.println("we are searching for "+skuToSearch);
 
@@ -84,12 +111,8 @@ public class BookDatabaseApp {
 				//add capability to create a new entry from here
 			}
 		}if(foundIt == false){
-			System.out.println("Sorry but i dont have it.  Would you like to add an entry to the database? press (y) for yess or any other key to continue");
-			/*String addABook = scanSku.nextLine();
-			if(addABook.equalsIgnoreCase("y")){
-				createBook();//need to figure out a way to push this back up
-			}*/
-			
+			System.out.println("Sorry but i dont have it but if you would like to add it you can do so from the main menu");  
+
 		}
 
 	}
@@ -129,12 +152,14 @@ public class BookDatabaseApp {
 		return newBook;
 	}
 	public static void displayDatabase(ArrayList<Book> inArray){
-		System.out.println("there are "+ inArray.size() + " books in the database");
+		System.out.println("There are "+ inArray.size() + " books in the database.");
 		System.out.println();
-
+		String output = String.format("%-10s | %-50s | %-30s | %-70s | %6s", "SKU","Title","Author","Description","Price");
+		System.out.println("________________________________________________________________________________________________________________________________________________________");
+		System.out.println(output);
 		for(Book i : inArray){
 			i.printBook();
 		}
-		System.out.println("____________________________________________________________________________________________________________________________________");
+		System.out.println("________________________________________________________________________________________________________________________________________________________");
 	}
 }
