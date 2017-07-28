@@ -6,14 +6,22 @@ public class Book {
 	private String bookAuthor;
 	private String description;
 	private double price;
+	private String catagory;
 
 	
-	public Book(String inSku, String inBookTitle, String inBookAuthor, String inDescription, double inPrice){
+	public Book(String inSku, String inBookTitle, String inBookAuthor, String inDescription, double inPrice, String inCatagory){
 		this.sku= inSku;
 		this.bookTitle = inBookTitle;
 		this.bookAuthor = inBookAuthor;
 		this.description = inDescription;
 		this.price = inPrice;
+		this.catagory = inCatagory;
+	}
+	public String getCatagory() {
+		return catagory;
+	}
+	public void setCatagory(String catagory) {
+		this.catagory = catagory;
 	}
 	public void printBook(){
 		String output = String.format("%-10s | %-50s | %-30s | %-70s | $%6.2f", sku,bookTitle,bookAuthor,description,price);
