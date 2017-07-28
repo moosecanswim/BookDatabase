@@ -12,9 +12,9 @@ public class BookDatabaseApp {
 	 * this would require me to override the .equals() class to compare all fields.
 	 * @param args
 	 */
-	
-	
-	
+
+
+
 	public static void main (String[] args){
 
 		//Compile database origionaly
@@ -30,36 +30,79 @@ public class BookDatabaseApp {
 
 		System.out.println("there are "+ bookDB.size() + " books in the database");
 		System.out.println();
-		
-		
-		
-		for(Book i : bookDB){
-			i.printBook();
-		}
+
+
+
+		displayDatabase(bookDB);
 
 		searchSku(bookDB);
+		createBook();
 
 	}
 	public static void searchSku(ArrayList<Book> inArray){
-		Scanner scan = new Scanner(System.in);
+		Scanner scanSku = new Scanner(System.in);
 		String skuToSearch=null;
 		System.out.println("Please enter a sku to search");
-		if(scan.hasNext()){
-			skuToSearch = scan.nextLine();
+		if(scanSku.hasNext()){
+			skuToSearch = scanSku.nextLine();
 		}else{
 			System.out.println("there is an issue entering your sku");
 		}
 		//System.out.println("we are searching for "+skuToSearch);
-		
+
+		Boolean foundIt = false;
 		for(Book i : inArray){
 			if(skuToSearch.equals(i.getSku())){
 				System.out.println("Found it!");
 				i.printBook();
+				foundIt = true;
 			}else{
-				System.out.println("Sore but i dont have it");
 				//add capability to create a new entry from here
 			}
+		}if(foundIt == false){
+			System.out.println("Sorry but i dont have it");
 		}
-		scan.close();
+
+	}
+	public static Book createBook(){
+		String inSku = null;
+		String inTit = null;
+		String inAut = null;
+		String inDec = null;
+		double inPri = 0.0;
+
+		System.out.println("Creating a book!");
+		Scanner scan = new Scanner(System.in);
+		System.out.println("Enter a SKU: ");
+		inSku = scan.nextLine();
+		System.out.println("Enter a Title: ");
+		inTit = scan.nextLine();
+		System.out.println("Enter an Author: ");
+		inAut = scan.nextLine();
+		System.out.println("Enter a Description: ");
+		inDec = scan.nextLine();
+		System.out.println("Enter a Price: ");
+		boolean realEntry = false;
+		while(realEntry==false){
+			if(scan.hasNextDouble()){
+				inPri = scan.nextDouble();
+				realEntry = true;
+			}else{
+				System.out.println("Please try another PRICE IN NUMBERS");
+				scan.next();
+				realEntry = false;
+			}
+		}
+		//scan.next();
+		Book newBook = new Book(inSku,inTit,inAut,inDec,inPri);
+		System.out.println("Book Accetped");
+
+		return newBook;
+	}
+	public static void displayDatabase(ArrayList<Book> inArray){
+		for(Book i : inArray){
+			i.printBook();
+		}
+		System.out.println("____________________________________________________________________________________________________________________________________");
 	}
 }
