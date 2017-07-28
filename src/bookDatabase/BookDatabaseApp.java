@@ -28,16 +28,40 @@ public class BookDatabaseApp {
 		bookDB.add(new Book("Zombie1005","The Maker's Guide to the Zombie Apocalypse","Simon Monk","Defend Your Base with Simple Circuits, Arduino, and Raspberry Pi",16.50));
 		bookDB.add(new Book("Rasp1006","Raspberry Pi Projects for the Evil Genius","Donald Norris","A dozen fiendishly fun projects for the Raspberry Pi!",14.75));
 
-		System.out.println("there are "+ bookDB.size() + " books in the database");
-		System.out.println();
+		Scanner scan = new Scanner(System.in);
+		boolean run = true;
+		do{
+			System.out.println("Would you like to (1)display the book database (2)search the database or (3) add an entery to the database?  press any other button to quit");
+			String response = scan.nextLine();
+			switch(response){
+			case "1" :
+				//case one- display database
+				displayDatabase(bookDB);
+				break;
+			case "2" :
+				//case two- search database
+				searchSku(bookDB);
+				break;
+			case "3" :
+				//case three- add entry 
+				bookDB.add(createBook());
+				//next step create an entry then ask if they want to add it to the database
+				break;
+			default:
+				//leave the program
+				System.out.println("cya brah");
+				run = false;
+
+			}
+
+		}while(run);
 
 
 
-		displayDatabase(bookDB);
 
-		searchSku(bookDB);
-		createBook();
 
+
+		System.out.println("Exiting Program");
 	}
 	public static void searchSku(ArrayList<Book> inArray){
 		Scanner scanSku = new Scanner(System.in);
@@ -53,14 +77,19 @@ public class BookDatabaseApp {
 		Boolean foundIt = false;
 		for(Book i : inArray){
 			if(skuToSearch.equals(i.getSku())){
-				System.out.println("Found it!");
+				System.out.println("Found it! Displaying the information below: ");
 				i.printBook();
 				foundIt = true;
 			}else{
 				//add capability to create a new entry from here
 			}
 		}if(foundIt == false){
-			System.out.println("Sorry but i dont have it");
+			System.out.println("Sorry but i dont have it.  Would you like to add an entry to the database? press (y) for yess or any other key to continue");
+			/*String addABook = scanSku.nextLine();
+			if(addABook.equalsIgnoreCase("y")){
+				createBook();//need to figure out a way to push this back up
+			}*/
+			
 		}
 
 	}
@@ -100,6 +129,9 @@ public class BookDatabaseApp {
 		return newBook;
 	}
 	public static void displayDatabase(ArrayList<Book> inArray){
+		System.out.println("there are "+ inArray.size() + " books in the database");
+		System.out.println();
+
 		for(Book i : inArray){
 			i.printBook();
 		}
