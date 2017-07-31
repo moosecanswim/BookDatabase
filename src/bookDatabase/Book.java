@@ -1,7 +1,6 @@
 package bookDatabase;
 
 public class Book {
-	private int index;
 	private String sku;
 	private String bookTitle;
 	private String bookAuthor;
@@ -10,20 +9,13 @@ public class Book {
 	private String catagory;
 
 	
-	public Book(int inIndex, String inSku, String inBookTitle, String inBookAuthor, String inDescription, double inPrice, String inCatagory){
-		this.index = inIndex;
+	public Book(String inSku, String inBookTitle, String inBookAuthor, String inDescription, double inPrice, String inCatagory){
 		this.sku= inSku;
 		this.bookTitle = inBookTitle;
 		this.bookAuthor = inBookAuthor;
 		this.description = inDescription;
 		this.price = inPrice;
 		this.catagory = inCatagory;
-	}
-	public int getIndex() {
-		return index;
-	}
-	public void setIndex(int index) {
-		this.index = index;
 	}
 	public String getCatagory() {
 		return catagory;
