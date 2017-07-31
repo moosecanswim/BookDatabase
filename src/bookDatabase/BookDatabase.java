@@ -8,10 +8,9 @@ public class BookDatabase {
 	/***
 	 * This application is going to allow you to create a database of books and search it based on the sku.  it may be possible to alter the method so that we can search it on different perameters too
 	 * This will present a menu to create, read (display all), and delete enteries or quit
-	 * I've already populated it with 6 books. (could add a quantity field to the book class and be able to add more of the same book)
+	 * I've already populated it with 6 books. 
 	 * this would require me to override the .equals() class to compare all fields.
-	 * @param args
-	 * @return 
+	 * 
 	 */
 
 
@@ -33,71 +32,22 @@ public class BookDatabase {
 		return bookDB;
 
 	}
-	//pass the database and whereToSearch
-	public static void search(ArrayList<Book> inArray,int whereToSearch){
-		//sku (1) author(2) catagory (3)
-		String [] searchableCatagories = {"sku","author","catagory"};
-		
-		
-		//enter the thing that you are looking for
-		Scanner scan = new Scanner(System.in);
-		String thingToSearchFor= null;
-		System.out.println();
-		System.out.println(String.format("Please enter %s to search (not case sensitive)",searchableCatagories[whereToSearch-1]));  //once i have figured out a way to create a list of catagories then i'll present a list to choose from
-		while(!scan.hasNext()){
-			System.out.println(String.format("There is an issue entering your %s.", searchableCatagories[whereToSearch-1]));
-		}thingToSearchFor = scan.nextLine();
 
-		switch(String.valueOf(whereToSearch)){
-		case "1":
-			//search sku
-			searchSku(inArray);
-			break;
-
-		case "2":
-			//search title
-			searchAuthor(inArray);
-			break;
-
-		case "3":
-			//search catagory
-			searchCatagory(inArray);
-			break;
-		default:
-			//leave the program
-			System.out.println("Exit Search");
-			
-			
-
-
-		}
-
-
-		Boolean foundIt = false;
-		int catagoryCount = 0;
-		for(Book i : inArray){
-			if(thingToSearchFor.equalsIgnoreCase(i.getCatagory())){
-				if(catagoryCount == 0){
-					System.out.println("Found some! Displaying the information below: ");
-					//authorCount++;
-				}
-				i.printBook();
-				catagoryCount++;
-				foundIt = true;
-			}else{
-				//add capability to create a new entry from here
-			}
-		}if(foundIt == false){
-			System.out.println("Sorry but i dont have it but if you would like to add it you can do so from the main menu");  
-
-		}
-	}
 
 	public static void searchCatagory(ArrayList<Book> inArray){
 		Scanner scanCatagory = new Scanner(System.in);
 		String catagoryToSearch=null;
 		System.out.println();
-		System.out.println("Please enter catagory to search (not case sensitive- fiction, nonFiction, or science");  //once i have figured out a way to create a list of catagories then i'll present a list to choose from
+		System.out.println("Please enter catagory from the choices below (non case sensative)");  
+		//print a list of catagoies avalable to choose from
+		ArrayList <String> catagoryOptions = new ArrayList<String>();
+		for(Book i : inArray){
+			if(!catagoryOptions.contains(i.getCatagory())){
+				System.out.println(i.getCatagory());
+				catagoryOptions.add(i.getCatagory());
+			}
+		}
+		
 		while(!scanCatagory.hasNext()){
 			System.out.println("There is an issue entering your catagory.");
 		}catagoryToSearch = scanCatagory.nextLine();
@@ -126,12 +76,9 @@ public class BookDatabase {
 		Scanner scanAuthor = new Scanner(System.in);
 		String authorToSearch=null;
 		System.out.println("Please enter an author to search (not case sensitive)");
-		if(scanAuthor.hasNext()){
-			authorToSearch = scanAuthor.nextLine();
-		}else{
+		while(!scanAuthor.hasNext()){
 			System.out.println("There is an issue entering your author.");
-		}
-		//System.out.println("we are searching for "+authorToSearch);
+		}authorToSearch = scanAuthor.nextLine();
 
 		Boolean foundIt = false;
 		int authorCount = 0;
@@ -156,11 +103,9 @@ public class BookDatabase {
 		Scanner scanSku = new Scanner(System.in);
 		String skuToSearch=null;
 		System.out.println("Please enter a sku to search (case sensitive)");
-		if(scanSku.hasNext()){
-			skuToSearch = scanSku.nextLine();
-		}else{
+		while(!scanSku.hasNext()){
 			System.out.println("There is an issue entering your sku.");
-		}
+		}skuToSearch = scanSku.nextLine();
 		//System.out.println("we are searching for "+skuToSearch);
 
 		Boolean foundIt = false;
@@ -172,7 +117,9 @@ public class BookDatabase {
 			}else{
 				//add capability to create a new entry from here
 			}
-		}if(foundIt == false){
+		}
+		System.out.println("foundIt is " + foundIt );
+		if(foundIt == false){
 			System.out.println("Sorry but i dont have it but if you would like to add it you can do so from the main menu");  
 
 		}
