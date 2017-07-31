@@ -24,7 +24,7 @@ public class Book {
 		this.catagory = catagory;
 	}
 	public void printBook(){
-		String output = String.format("%-10s | %-50s | %-30s | %-70s | $%6.2f", sku,bookTitle,bookAuthor,description,price);
+		String output = String.format("%-3s | %-10s | %-50s | %-30s | %-70s | $%6.2f", "",sku,bookTitle,bookAuthor,description,price);
 		System.out.println(output);
 		
 	}

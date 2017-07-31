@@ -15,15 +15,17 @@ public class BookDatabase {
 
 	//modify an entry
 	public static void modify(Book input){
+
 		Scanner scan = new Scanner(System.in);
 		String response = null;
 		
 		System.out.println("This is the entry you want to modify:" );
 		input.printBook();
 		System.out.println("What would you like to modify: (1) sku, (2) title, (3) author, (4) description, (5) catagory, (6) price");
-		while(!scan.hasNextInt()){
+		while(!scan.hasNextLine()){
 			System.out.println("There was an issue with yout input.");
 		}
+		response = scan.nextLine();
 		Book tempBook = input;
 		switch(response){
 		case "1":
@@ -231,11 +233,14 @@ public class BookDatabase {
 	public static void displayDatabase(ArrayList<Book> inArray){
 		System.out.println("There are "+ inArray.size() + " books in the database.");
 		System.out.println();
-		String output = String.format("%-10s | %-50s | %-30s | %-70s | %6s", "SKU","Title","Author","Description","Price");
+		String output = String.format("%-5s | %-12s | %-50s | %-30s | %-70s | %6s", "index","SKU","Title","Author","Description","Price");
 		System.out.println("________________________________________________________________________________________________________________________________________________________");
 		System.out.println(output);
+		int count=0;
 		for(Book i : inArray){
+			System.out.print(count + " ");
 			i.printBook();
+			count++;
 		}
 		System.out.println("________________________________________________________________________________________________________________________________________________________");
 	}
