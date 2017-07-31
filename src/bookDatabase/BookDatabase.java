@@ -33,10 +33,12 @@ public class BookDatabase {
 			System.out.println(String.format("The current sku is %s",input.getSku()));
 			String newSku = null;
 			String confirmation = null;
-			
+
+			System.out.println("What should the new sku be?");
 			while(!scan.hasNextLine()){
 				System.out.println("There was an issue with that you put into for the sku.  please try again");
 			}
+
 			newSku = scan.nextLine();
 			System.out.println(String.format("Replace old sku: %s with new sku %s.  (c)onfirm of (d)eny these changes.",tempBook.getSku(),newSku));
 			while(!scan.hasNextLine()){
@@ -46,9 +48,11 @@ public class BookDatabase {
 				//confirm
 				input.setSku(newSku);
 				System.out.println("sku was changed to " + input.getSku());
-			}else if(confirmation.equalsIgnoreCase("d")){
+			}if(confirmation.equalsIgnoreCase("d")){
 				//deny
 				System.out.println("sku will remain " + tempBook.getSku());
+			}else{
+				//do nothing
 			}
 			
 			
