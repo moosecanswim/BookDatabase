@@ -13,20 +13,89 @@ public class BookDatabase {
 	 * 
 	 */
 
-
+	//modify an entry
+	public static void modify(Book input){
+		Scanner scan = new Scanner(System.in);
+		String response = null;
+		
+		System.out.println("This is the entry you want to modify:" );
+		input.printBook();
+		System.out.println("What would you like to modify: (1) sku, (2) title, (3) author, (4) description, (5) catagory, (6) price");
+		while(!scan.hasNextInt()){
+			System.out.println("There was an issue with yout input.");
+		}
+		Book tempBook = input;
+		switch(response){
+		case "1":
+			//change the sku
+			System.out.println(String.format("The current sku is %s",input.getSku()));
+			String newSku = null;
+			String confirmation = null;
+			
+			while(!scan.hasNextLine()){
+				System.out.println("There was an issue with that you put into for the sku.  please try again");
+			}
+			newSku = scan.nextLine();
+			System.out.println(String.format("Replace old sku: %s with new sku %s.  (c)onfirm of (d)eny these changes.",tempBook.getSku(),newSku));
+			while(!scan.hasNextLine()){
+				System.out.println("press c or d to confirm or deny");
+			}confirmation = scan.nextLine();
+			if(confirmation.equalsIgnoreCase("c")){
+				//confirm
+				input.setSku(newSku);
+				System.out.println("sku was changed to " + input.getSku());
+			}else if(confirmation.equalsIgnoreCase("d")){
+				//deny
+				System.out.println("sku will remain " + tempBook.getSku());
+			}
+			
+			
+			//add something to check the sku.  you cannot modify something to match another sku
+			break;
+		case "2":
+			//change the title
+			System.out.println("Modify the Title");
+			break;
+		case "3":
+			//change the author
+			System.out.println("Modify the Author");
+			break;
+		case "4":
+			//change the description
+			System.out.println("Modify the Description");
+			break;
+		case "5":
+			//change the catagory
+			System.out.println("Modify the Catagory");
+			break;
+		case "6":
+			//change the price
+			System.out.println("Modify the Price");
+			break;
+			
+		default:
+			System.out.println("Exiting modify");	
+		}
+		
+		
+		
+		
+		
+		
+	}
 
 	//populate the database with default enteries
 	public static ArrayList<Book> insertDefaultEntries (){
 		ArrayList<Book> bookDB = new ArrayList<Book>();
 
 		//bookDB.add(new Book("sku","title","author","description",100));
-		bookDB.add(new Book("Java1001","Head First Java","Kathy Sierra and Bert Bates","Easy to read Java workbook",47.50,"Fiction"));
-		bookDB.add(new Book("Java1002","Thinking in Java","Bruce Eckel","Details about Java under the hood",20.00,"science"));
-		bookDB.add(new Book("Orcl1003","OCP: Oracle Certified Professional Java SE","Jeanne Boyarsky","Everything you need to know in one place",45.00,"nonFiction"));
-		bookDB.add(new Book("Python1004","Automate the Boring Stuff with Python","Al Sweigart","Fun with Python",10.50,"Fiction"));
-		bookDB.add(new Book("Zombie1005","The Maker's Guide to the Zombie Apocalypse","Simon Monk","Defend Your Base with Simple Circuits, Arduino, and Raspberry Pi",16.50,"nonFiction"));
-		bookDB.add(new Book("Rasp1006","Raspberry Pi Projects for the Evil Genius","Kyle","A dozen fiendishly fun projects for the Raspberry Pi!",14.75,"Fiction"));
-		bookDB.add(new Book("Rasp1007","Rasb 2","Kyle","A dozen fiendishly fun projects for the Raspberry Pi!",15.75,"nonFiction"));
+		bookDB.add(new Book(1,"Java1001","Head First Java","Kathy Sierra and Bert Bates","Easy to read Java workbook",47.50,"Fiction"));
+		bookDB.add(new Book(2,"Java1002","Thinking in Java","Bruce Eckel","Details about Java under the hood",20.00,"science"));
+		bookDB.add(new Book(3,"Orcl1003","OCP: Oracle Certified Professional Java SE","Jeanne Boyarsky","Everything you need to know in one place",45.00,"nonFiction"));
+		bookDB.add(new Book(4,"Python1004","Automate the Boring Stuff with Python","Al Sweigart","Fun with Python",10.50,"Fiction"));
+		bookDB.add(new Book(5,"Zombie1005","The Maker's Guide to the Zombie Apocalypse","Simon Monk","Defend Your Base with Simple Circuits, Arduino, and Raspberry Pi",16.50,"nonFiction"));
+		bookDB.add(new Book(6,"Rasp1006","Raspberry Pi Projects for the Evil Genius","Kyle","A dozen fiendishly fun projects for the Raspberry Pi!",14.75,"Fiction"));
+		bookDB.add(new Book(7,"Rasp1007","Rasb 2","Kyle","A dozen fiendishly fun projects for the Raspberry Pi!",15.75,"nonFiction"));
 
 
 		return bookDB;
@@ -125,6 +194,8 @@ public class BookDatabase {
 		}
 
 	}
+	
+	//should add a verify so a sku cannot be entered that matches another sku that is in the database already
 	public static Book createBook(){
 		String inSku = null;
 		String inTit = null;
